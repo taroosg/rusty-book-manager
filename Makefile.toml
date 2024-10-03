@@ -188,12 +188,12 @@ extend = "set-env-docker"
 command = "docker"
 args = ["compose", "down", "-v"]
 
-[tasks.ecr-build]
-description = "Build the Docker image for backend and prepare for pushing to ECR"
-dependencies = ["compose-build-app"]  # 必要に応じて、他のタスクを依存関係に追加
-script = [
-    "docker tag example-app-app ${REGISTRY}/${REPOSITORY}:${IMAGE_TAG}",
-    "docker push ${REGISTRY}/${REPOSITORY}:${IMAGE_TAG}",
-    "docker tag example-app-app ${REGISTRY}/${REPOSITORY}:latest",
-    "docker push ${REGISTRY}/${REPOSITORY}:latest"
-]
+#[tasks.ecr-build]
+#description = "Build the Docker image for backend and prepare for pushing to ECR"
+#dependencies = ["compose-build-app"]  # 必要に応じて、他のタスクを依存関係に追加
+#script = [
+#    "docker tag app ${REGISTRY}/${REPOSITORY}:${IMAGE_TAG}",
+#    "docker push ${REGISTRY}/${REPOSITORY}:${IMAGE_TAG}",
+#    "docker tag example-app-app ${REGISTRY}/${REPOSITORY}:latest",
+#    "docker push ${REGISTRY}/${REPOSITORY}:latest"
+#]
