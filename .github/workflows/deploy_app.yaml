@@ -54,7 +54,7 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         run: |
           cargo make compose-build-app
-          docker tag rusty-book-manager_app ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:${{ env.IMAGE_TAG }}
+          docker tag rusty-book-manager ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:${{ env.IMAGE_TAG }}
           docker push ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:${{ env.IMAGE_TAG }}
-          docker tag rusty-book-manager_app ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:latest
+          docker tag rusty-book-manager ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:latest
           docker push ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:latest
