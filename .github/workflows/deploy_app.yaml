@@ -53,7 +53,7 @@ jobs:
           REPOSITORY: "book-manager-backend"
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          cargo make ecr-build
+          cargo make compose-build-app
           docker tag example-app-app ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:${{ env.IMAGE_TAG }}
           docker push ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:${{ env.IMAGE_TAG }}
           docker tag example-app-app ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:latest
