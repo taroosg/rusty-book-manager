@@ -1,4 +1,4 @@
-use::anyhow::Result;
+use ::anyhow::Result;
 
 pub struct AppConfig {
     pub database: DatabaseConfig,
