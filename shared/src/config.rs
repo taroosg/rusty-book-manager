@@ -1,7 +1,7 @@
 use::anyhow::Result;
 
 pub struct AppConfig {
-    pub database: DataBaseConfig,
+    pub database: DatabaseConfig,
 }
 
 impl AppConfig {
