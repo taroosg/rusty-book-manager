@@ -4,12 +4,12 @@ use kernel::repository::health::HealthCheckRepository;
 use crate::database::ConnectionPool;
 
 #[derive(new)]
-pub struct HealthCheckRepositoryPool {
+pub struct HealthCheckRepositoryImpl {
     db: ConnectionPool,
 }
 
 #[async_trait]
-impl HealthCheckRepository for HealthCheckRepositoryPool {
+impl HealthCheckRepository for HealthCheckRepositoryImpl {
     async fn check_db(&self) -> bool {
         sqlx::query("SELECT 1")
             .fetch_one(self.db.inner_ref())
