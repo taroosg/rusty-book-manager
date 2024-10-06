@@ -5,7 +5,7 @@ pub struct AppConfig {
 }
 
 impl AppConfig {
-    fn new() -> Result<Self> {
+    pub fn new() -> Result<Self> {
         let database = DatabaseConfig {
             host: std::env::var("DATABASE_HOST")?,
             port: std::env::var("DATABASE_PORT")?.parse()?,
