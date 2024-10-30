@@ -5,8 +5,8 @@ use kernel::model::book::{event::CreateBook, Book};
 use kernel::repository::book::BookRepository;
 use uuid::Uuid;
 
-use crate::database::ConnectionPool;
 use crate::database::model::book::BookRow;
+use crate::database::ConnectionPool;
 
 #[derive(new)]
 pub struct BookRepositoryImpl {
@@ -25,8 +25,8 @@ impl BookRepository for BookRepositoryImpl {
             event.isbn,
             event.description
         )
-            .execute(self.db.inner_ref())
-            .await?;
+        .execute(self.db.inner_ref())
+        .await?;
 
         Ok(())
     }
@@ -38,13 +38,13 @@ impl BookRepository for BookRepositoryImpl {
             SELECT book_id, title, author, isbn, description FROM books ORDER BY created_at DESC
             "#
         )
-            .fetch_all(self.db.inner_ref())
-            .await?;
+        .fetch_all(self.db.inner_ref())
+        .await?;
 
         Ok(rows.into_iter().map(Book::from).collect())
     }
 
-    async fn find_by_id(&self, book_id:Uuid) -> Result<Option<Book>> {
+    async fn find_by_id(&self, book_id: Uuid) -> Result<Option<Book>> {
         let row = sqlx::query_as!(
             BookRow,
             r#"
@@ -52,8 +52,8 @@ impl BookRepository for BookRepositoryImpl {
             "#,
             book_id
         )
-            .fetch_optional(self.db.inner_ref())
-            .await?;
+        .fetch_optional(self.db.inner_ref())
+        .await?;
 
         Ok(row.map(Book::from))
     }
