@@ -7,11 +7,17 @@ pub struct AppConfig {
 impl AppConfig {
     pub fn new() -> Result<Self> {
         let database = DatabaseConfig {
+            // 環境変数が取れない
             host: std::env::var("DATABASE_HOST")?,
             port: std::env::var("DATABASE_PORT")?.parse()?,
             username: std::env::var("DATABASE_USERNAME")?,
             password: std::env::var("DATABASE_PASSWORD")?,
             database: std::env::var("DATABASE_DATABASE")?,
+            // host: "localhost".into(),
+            // port: 5432,
+            // username: "app".into(),
+            // password: "passwd".into(),
+            // database: "app".into(),
         };
         Ok(Self { database })
     }
