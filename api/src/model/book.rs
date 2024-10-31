@@ -1,9 +1,9 @@
-use kernel::model::book::{Book, event::CreateBook};
-use serde::{ Serialize, Deserialize };
+use kernel::model::book::{event::CreateBook, Book};
+use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
 #[derive(Debug, Deserialize)]
-#[serde(rename_all="camelCase")]
+#[serde(rename_all = "camelCase")]
 pub struct CreateBookRequest {
     pub title: String,
     pub author: String,
@@ -12,14 +12,14 @@ pub struct CreateBookRequest {
 }
 
 impl From<CreateBookRequest> for CreateBook {
-    fn from (value: CreateBookRequest) -> Self {
+    fn from(value: CreateBookRequest) -> Self {
         let CreateBookRequest {
             title,
             author,
             isbn,
             description,
         } = value;
-        Slef {
+        CreateBook {
             title,
             author,
             isbn,
@@ -28,8 +28,8 @@ impl From<CreateBookRequest> for CreateBook {
     }
 }
 
-#[derive(Debug, Deserialize)]
-#[serde(rename_all="camelCase")]
+#[derive(Debug, Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct BookResponse {
     pub id: Uuid,
     pub title: String,
@@ -39,7 +39,7 @@ pub struct BookResponse {
 }
 
 impl From<Book> for BookResponse {
-    fn from (value: Book) -> Self {
+    fn from(value: Book) -> Self {
         let Book {
             id,
             title,

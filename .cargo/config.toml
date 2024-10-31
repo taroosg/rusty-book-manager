@@ -1,0 +1,7 @@
+[env]
+DATABASE_URL = "postgres://app:passwd@localhost:5432/app"
+DATABASE_HOST="localhost"
+DATABASE_PORT="5432"
+DATABASE_USERNAME="app"
+DATABASE_PASSWORD="passwd"
+DATABASE_DATABASE="app cargo make run"
