@@ -2079,6 +2079,7 @@ dependencies = [
  "axum",
  "bcrypt",
  "garde",
+ "log",
  "redis",
  "secrecy",
  "sqlx",

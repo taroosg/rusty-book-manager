@@ -19,3 +19,4 @@ redis.workspace = true
 bcrypt.workspace = true
 garde.workspace = true
 tracing.workspace = true
+log = "0.4.22"
