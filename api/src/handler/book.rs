@@ -3,17 +3,16 @@ use axum::{
     http::StatusCode,
     Json,
 };
+use kernel::model::id::BookId;
 use registry::AppRegistry;
-use shared::error::AppResult;
-use thiserror::Error;
-use uuid::Uuid;
+use shared::error::AppError;
 
 use crate::model::book::{BookResponse, CreateBookRequest};
 
 pub async fn register_book(
     State(registry): State<AppRegistry>,
     Json(req): Json<CreateBookRequest>,
-) -> AppResult<StatusCode, AppError> {
+) -> Result<StatusCode, AppError> {
     registry
         .book_repository()
         .create(req.into())
@@ -23,7 +22,7 @@ pub async fn register_book(
 
 pub async fn show_book_list(
     State(registry): State<AppRegistry>,
-) -> AppResult<Json<Vec<BookResponse>>, AppError> {
+) -> Result<Json<Vec<BookResponse>>, AppError> {
     registry
         .book_repository()
         .find_all()
@@ -33,9 +32,9 @@ pub async fn show_book_list(
 }
 
 pub async fn show_book(
-    Path(book_id): Path<Uuid>,
+    Path(book_id): Path<BookId>,
     State(registry): State<AppRegistry>,
-) -> AppResult<Json<BookResponse>, AppError> {
+) -> Result<Json<BookResponse>, AppError> {
     registry
         .book_repository()
         .find_by_id(book_id)
