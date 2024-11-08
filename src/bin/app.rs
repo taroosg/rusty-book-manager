@@ -1,13 +1,13 @@
 use std::net::{Ipv4Addr, SocketAddr};
 
 use adapter::database::connect_database_with;
-use anyhow::{Error, Result};
+use anyhow::Result;
 use api::route::{book::build_book_routers, health::build_health_check_routers};
 use axum::Router;
 use registry::AppRegistry;
 use shared::config::AppConfig;
-use tokio::net::TcpListener;
-use tracing::{error, Subscriber};
+// use tokio::net::TcpListener;
+// use tracing::{error, Subscriber};
 
 // ログ関連のもの
 use shared::env::{which, Environment};
