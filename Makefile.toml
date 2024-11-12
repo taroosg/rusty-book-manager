@@ -198,3 +198,17 @@ args = ["compose", "down", "-v"]
 #    "docker tag example-app-app ${REGISTRY}/${REPOSITORY}:latest",
 #    "docker push ${REGISTRY}/${REPOSITORY}:latest"
 #]
+
+[tasks.create-hash]
+script_runner = "@rust"
+script = '''
+//! ```cargo
+//! [dependencies]
+//! bcrypt = "0.15.1"
+//! ```
+fn main() {
+    let password = &std::env::args().collect::<Vec<String>>()[1];
+    let hashed = bcrypt::hash(password, bcrypt::DEFAULT_COST).unwrap();
+    println!("{}", hashed);
+}
+'''
