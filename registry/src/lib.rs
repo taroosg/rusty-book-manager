@@ -1,18 +1,14 @@
 use std::sync::Arc;
 
-use adapter::repository::book::BookRepositoryImpl;
 use adapter::{
     database::ConnectionPool,
+    redis::RedisClient,
     repository::{
-        health::HealthCheckRepositoryImpl,
-        auth::AuthRepositoryImpl,
-    }
+        auth::AuthRepositoryImpl, book::BookRepositoryImpl, health::HealthCheckRepositoryImpl,
+    },
 };
-use adapter::redis::RedisClient;
 use kernel::repository::{
-    auth::AuthRepository,
-    book::BookRepository,
-    health::HealthCheckRepository,
+    auth::AuthRepository, book::BookRepository, health::HealthCheckRepository,
 };
 use shared::config::AppConfig;
 
@@ -26,7 +22,7 @@ pub struct AppRegistry {
 impl AppRegistry {
     pub fn new(
         pool: ConnectionPool,
-        redis_client: RedisClient,
+        redis_client: Arc<RedisClient>,
         app_config: AppConfig,
     ) -> Self {
         let health_check_repository = Arc::new(HealthCheckRepositoryImpl::new(pool.clone()));
@@ -34,7 +30,7 @@ impl AppRegistry {
         let auth_repository = Arc::new(AuthRepositoryImpl::new(
             pool.clone(),
             redis_client.clone(),
-            app_config.auth.ttl()
+            app_config.auth.ttl,
         ));
         Self {
             health_check_repository,
