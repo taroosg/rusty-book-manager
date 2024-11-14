@@ -1,5 +1,5 @@
 use crate::{
-    // extractor::AuthorizedUser,
+    extractor::AuthorizedUser,
     model::auth::{AccessTokenResponse, LoginRequest},
 };
 use axum::{extract::State, http::StatusCode, Json};
@@ -26,6 +26,14 @@ pub async fn login(
     }))
 }
 
-pub async fn logout(State(registry): State<AppRegistry>) -> AppResult<StatusCode> {
-    todo!()
+pub async fn logout(
+    user: AuthorizedUser,
+    State(registry): State<AppRegistry>,
+) -> AppResult<StatusCode> {
+    registry
+        .auth_repository()
+        .delete_token(user.access_token)
+        .await?;
+
+    Ok(StatusCode::NO_CONTENT)
 }
