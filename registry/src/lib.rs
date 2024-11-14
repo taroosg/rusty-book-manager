@@ -1,16 +1,14 @@
 use std::sync::Arc;
 
-use adapter::{
-    database::ConnectionPool,
-    redis::RedisClient,
-    repository::{
-        auth::AuthRepositoryImpl, book::BookRepositoryImpl, health::HealthCheckRepositoryImpl,
-        user::UserRepositoryImpl,
-    },
-};
-use kernel::repository::{
-    auth::AuthRepository, book::BookRepository, health::HealthCheckRepository, user::UserRepository,
-};
+use adapter::redis::RedisClient;
+use adapter::repository::auth::AuthRepositoryImpl;
+use adapter::repository::book::BookRepositoryImpl;
+use adapter::repository::user::UserRepositoryImpl;
+use adapter::{database::ConnectionPool, repository::health::HealthCheckRepositoryImpl};
+use kernel::repository::auth::AuthRepository;
+use kernel::repository::book::BookRepository;
+use kernel::repository::health::HealthCheckRepository;
+use kernel::repository::user::UserRepository;
 use shared::config::AppConfig;
 
 #[derive(Clone)]
@@ -56,6 +54,6 @@ impl AppRegistry {
     }
 
     pub fn user_repository(&self) -> Arc<dyn UserRepository> {
-        self.user_repository().clone()
+        self.user_repository.clone()
     }
 }
